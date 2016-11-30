@@ -1,7 +1,10 @@
 var app = angular.module('hello');
-app.controller('HomeCtrl', function($scope, $rootScope,$state, UserService){
+app.controller('HomeCtrl', function($scope, $rootScope,$state, UserService, NavigationLinksService){
+    $scope.navigation_links = [];
     UserService.get().then(function(res){
-        console.log(res);
+        //Hack to test the user role
+        res.role = $rootScope.role;
+        //end of a hack
         $rootScope.user = res;
         if(res.role=="teacher"){
             $state.go('home.teacher');
@@ -9,6 +12,14 @@ app.controller('HomeCtrl', function($scope, $rootScope,$state, UserService){
             $state.go('home.student');
         }
     });
+
+    NavigationLinksService.get().then(function(res){
+        $scope.navigation_links = res;
+    });
+
+
+
+
 
 
 

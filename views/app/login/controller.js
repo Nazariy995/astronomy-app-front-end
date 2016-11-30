@@ -1,5 +1,5 @@
 var app = angular.module('hello');
-app.controller('LoginCtrl', function($rootScope, $scope, AuthService){
+app.controller('LoginCtrl', function($rootScope, $scope,$state, AuthService){
     var self = this;
     self.credentials = {
         username:'',
@@ -8,14 +8,20 @@ app.controller('LoginCtrl', function($rootScope, $scope, AuthService){
 
     self.login = function(credentials){
         AuthService.login(credentials).then(function(res){
-            console.log(res);
+            //Hack for role switching
+            if(self.credentials.username == "student"){
+                $rootScope.role="student";
+            }else{
+                $rootScope.role="teacher";
+            }
+            //end of hack
             if(res.authenticated){
                 $rootScope.authenticated = true;
-                $location.path("/home");
+                $state.go("home");
                 console.log("Login Succeeded ")
             }else{
                 $rootScope.authenticated = false;
-                $location.path("/");
+                $state.go("/");
                 console.log("Login Failed");
             }
         },function(){

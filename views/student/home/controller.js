@@ -1,8 +1,8 @@
 var app = angular.module('hello');
-app.controller('Student.HomeCtrl', function($rootScope, $scope){
-    console.log("inside student controller");
-
-
-
+app.controller('Student.HomeCtrl', function($rootScope, $scope, CourseService){
+    $scope.courses = [];
+    CourseService.get().then(function(res){
+        $scope.courses = res;
+    })
 
 });
