@@ -1,5 +1,5 @@
 var app = angular.module('hello');
-app.controller('LoginCtrl', function($rootScope, $scope, $location, AuthService){
+app.controller('LoginCtrl', function($rootScope, $scope, AuthService){
     var self = this;
     self.credentials = {
         username:'',
