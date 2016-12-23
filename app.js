@@ -1,10 +1,10 @@
 var app = angular.module('hello', [ 'ui.router' ]);
 
-app.config(function($stateProvider, $httpProvider) {
+app.config(function($stateProvider, $httpProvider, $locationProvider) {
     var states = [
         {
             name:'login',
-            url:'/login',
+            url:'/',
             templateUrl:'views/app/login/login.html',
             controller: 'LoginCtrl',
             controllerAs: 'ctrl'
@@ -37,5 +37,8 @@ app.config(function($stateProvider, $httpProvider) {
     });
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+    //Removing # from the urls
+    $locationProvider.html5Mode(true);
 
 });
