@@ -1,12 +1,14 @@
-var app = angular.module('hello', [ 'ui.router' ]);
 
-app.config(function($stateProvider, $httpProvider, $locationProvider) {
+
+function Router($stateProvider, $httpProvider, $locationProvider){
+    "ngInject";
+
     var states = [
         {
             name:'login',
             url:'/',
             templateUrl:'views/app/login/login.html',
-            controller: 'LoginCtrl',
+            controller: 'AppLoginController',
             controllerAs: 'ctrl'
         },
         {
@@ -36,9 +38,10 @@ app.config(function($stateProvider, $httpProvider, $locationProvider) {
         $stateProvider.state(state);
     });
 
-	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     //Removing # from the urls
     $locationProvider.html5Mode(true);
+}
 
-});
+module.exports = Router;
